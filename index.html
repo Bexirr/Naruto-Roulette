@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NarutoRoulette</title>
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="80" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="%23ff6600" stroke="%23000000" stroke-width="5" text-anchor="middle">B</text></svg>'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="credits-btn" onclick="openCredits()">Credits</button>
+
+    <div id="layout-container">
+        
+        <div id="left-panel" class="glass-panel">
+            <h1 id="main-title">Ninja Path</h1>
+            
+            <div id="action-content">
+
+                <div id="screen-credits" class="screen">
+                    <h2 style="color: #ff6600; border-bottom: none;">Thank You for Playing!</h2>
+                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #ccc;">
+                        <strong>Special Thanks:</strong> Inspired by the amazing <br>
+                        <a href="https://zeroxm.github.io/pokemon-roulette/" target="_blank" style="color: #ff6600; text-decoration: none; border-bottom: 1px dashed #ff6600;">PokemonRoulette</a>.
+                    </p>
+                    <div class="button-group">
+                        <button onclick="window.open('https://github.com/Bexirr', '_blank')" style="background: rgba(36, 41, 46, 0.9); border-color: rgba(255,255,255,0.5);">My GitHub Profile</button>
+                        <button onclick="closeCredits()" style="margin-top: 15px; background-color: #555;">Return</button>
+                    </div>
+                </div>
+
+                <div id="screen-gender" class="screen active">
+                    <h2>Select Gender</h2>
+                    <div class="button-group">
+                        <button onclick="selectGender('Male')">Male</button>
+                        <button onclick="selectGender('Female')">Female</button>
+                        <button id="start-load-btn" class="hidden" onclick="loadGame()" style="background-color: #2b78e4; margin-top:20px;">Load Saved Game</button>
+                    </div>
+                </div>
+
+                <div id="screen-village" class="screen">
+                    <h2>Village Origin</h2>
+                    <button id="spin-village-btn" onclick="spinVillage()">Spin Village Wheel</button>
+                    <div id="village-result" class="result-text"></div>
+                    <button id="next-to-clan-btn" class="hidden next-btn" onclick="goToClan()">Next</button>
+                </div>
+
+                <div id="screen-clan" class="screen">
+                    <h2>Bloodline & Clan</h2>
+                    <p id="clan-info-text"></p>
+                    <button id="spin-clan-btn" onclick="spinClan()">Spin Clan Wheel</button>
+                    <div id="clan-result" class="result-text"></div>
+                    <button id="next-to-stats-btn" class="hidden next-btn" onclick="goToStats()">Next</button>
+                </div>
+
+                <div id="screen-stats" class="screen">
+                    <h2>Ninja Potentials</h2>
+                    <div class="stat-group">
+                        <button id="spin-natureCount-btn" onclick="spinStat('natureCount')">Nature Count</button>
+                        <span id="stat-natureCount-result" class="stat-result"></span>
+                    </div>
+                    <div class="stat-group">
+                        <button id="spin-natures-btn" onclick="spinStat('natures')">Elements</button>
+                        <span id="stat-natures-result" class="stat-result"></span>
+                    </div>
+                    <div class="stat-group">
+                        <button id="spin-chakraAmount-btn" onclick="spinStat('chakraAmount')">Chakra Amount</button>
+                        <span id="stat-chakraAmount-result" class="stat-result"></span>
+                    </div>
+                    <div class="stat-group">
+                        <button id="spin-chakraControl-btn" onclick="spinStat('chakraControl')">Chakra Control</button>
+                        <span id="stat-chakraControl-result" class="stat-result"></span>
+                    </div>
+                    <div class="stat-group">
+                        <button id="spin-ninjutsu-btn" onclick="spinStat('ninjutsu')">Ninjutsu</button>
+                        <span id="stat-ninjutsu-result" class="stat-result"></span>
+                    </div>
+                    <div class="stat-group">
+                        <button id="spin-taijutsu-btn" onclick="spinStat('taijutsu')">Taijutsu</button>
+                        <span id="stat-taijutsu-result" class="stat-result"></span>
+                    </div>
+                    <div class="stat-group">
+                        <button id="spin-genjutsu-btn" onclick="spinStat('genjutsu')">Genjutsu</button>
+                        <span id="stat-genjutsu-result" class="stat-result"></span>
+                    </div>
+                    <div class="stat-group">
+                        <button id="spin-extraSkill-btn" onclick="spinStat('extraSkill')">Extra Skill</button>
+                        <span id="stat-extraSkill-result" class="stat-result"></span>
+                    </div>
+                    <button id="next-to-story-btn" class="hidden next-btn" onclick="goToStory()">Next</button>
+                </div>
+
+                <div id="screen-academy" class="screen">
+                    <h2>Academy Graduation</h2>
+                    <button id="spin-academy-btn" onclick="spinAcademy()">Graduation Exam</button>
+                    <div id="academy-result" class="result-text"></div>
+                    <button id="next-to-hub-btn" class="hidden next-btn" onclick="goToHub()">Enter Ninja World</button>
+                </div>
+
+                <div id="screen-hub" class="screen">
+                    <h2>Ninja Hub</h2>
+                    <div class="button-group">
+                        <button id="spin-action-btn" onclick="spinAction()">Spin Action Wheel</button>
+                        <button id="visit-shop-btn" onclick="goToShop()">Visit Ninja Shop</button>
+                        <button id="save-game-btn" onclick="saveGame()" style="background-color: #2b78e4;">Save Game</button>
+                        <button id="save-world-btn" class="hidden" onclick="startWorldSaver()" style="background-color: #8e44ad;">Save the Ninja World</button>
+                    </div>
+                </div>
+
+                <div id="screen-shop" class="screen">
+                    <h2>Ninja Tools Shop</h2>
+                    <div class="button-group">
+                        <button onclick="buyItem('Soldier Pill', 50)" title="Heals 150 HP during combat. Can be used on yourself or your allies.">Soldier Pill (50 Ryo)</button>
+                        <button onclick="buyItem('Smoke Bomb', 75)" title="Severely reduces the enemy's accuracy for their next turn.">Smoke Bomb (75 Ryo)</button>
+                        <button onclick="buyItem('Explosive Tag', 100)" title="Ensures a safe escape from ambushes, or adds a massive damage option to your combat wheel.">Explosive Tag (100 Ryo)</button>
+                        <button id="shop-blade" onclick="buyItem('Chakra Blade', 500)" title="Permanently adds a high-damage weapon strike to your combat wheel.">Chakra Blade (500 Ryo)</button>
+                        <button id="shop-bingo" onclick="buyItem('Bingo Book', 800)" title="Contains assassination bounties. Permanently increases all Ryo earned by 50%.">Bingo Book (800 Ryo)</button>
+                        <button id="shop-uchiha" onclick="buyItem('Gunbai', 1500)" style="display:none; background-color: purple;" title="Uchiha Clan Relic: Adds 'Uchiha Reflection' to your combat wheel.">Gunbai (1500 Ryo)</button>
+                        <button id="shop-uzumaki" onclick="buyItem('Sealing Scroll', 1500)" style="display:none; background-color: teal;" title="Uzumaki Clan Relic: Adds 'Adamantine Chains' to your combat wheel.">Sealing Scroll (1500 Ryo)</button>
+                    </div>
+                    <div id="shop-result" class="result-text"></div>
+                    <button class="next-btn" onclick="returnToHub()">Back to Hub</button>
+                </div>
+
+                <div id="screen-event" class="screen">
+                    <h2 id="event-title">Event</h2>
+                    <p id="event-description"></p>
+                    <div id="event-result" class="result-text"></div>
+                    <button id="spin-reward-btn" class="hidden" onclick="spinBonusReward()" style="background-color: #4CAF50;">Spin Bonus Reward</button>
+                    <div class="button-group">
+                        <button id="return-hub-btn" class="next-btn" onclick="returnToHub()">Continue</button>
+                        <button id="escape-ambush-btn" class="hidden" onclick="escapeAmbush()" style="background-color: #f39c12;">Use Tag to Escape</button>
+                        <button id="fight-ambush-btn" class="hidden" onclick="triggerAmbushCombat()" style="background-color: darkred;">Fight Enemy</button>
+                    </div>
+                </div>
+
+                <div id="screen-combat" class="screen">
+                    <h2 id="combat-title">Battle</h2>
+                    <div class="combat-stats-box">
+                        <div id="combat-player-box" style="flex: 1; margin: 0 5px;">
+                            <h3 style="color: #4CAF50; font-size: 1rem;">You</h3>
+                            <p style="font-size: 0.85rem;">HP: <span id="combat-player-hp">100</span></p>
+                        </div>
+                        <div id="combat-naruto-box" class="hidden" style="flex: 1; margin: 0 5px;">
+                            <h3 style="color: #f39c12; font-size: 1rem;">Naruto</h3>
+                            <p style="font-size: 0.85rem;">HP: <span id="combat-naruto-hp">1000</span></p>
+                        </div>
+                        <div id="combat-sasuke-box" class="hidden" style="flex: 1; margin: 0 5px;">
+                            <h3 style="color: #9b59b6; font-size: 1rem;">Sasuke</h3>
+                            <p style="font-size: 0.85rem;">HP: <span id="combat-sasuke-hp">750</span></p>
+                        </div>
+                        <div id="combat-boss-box" style="flex: 1; margin: 0 5px; text-align: right;">
+                            <h3 id="combat-boss-name" style="color: #ff3333; font-size: 1rem;">Boss</h3>
+                            <p style="font-size: 0.85rem;">HP: <span id="combat-boss-hp">???</span></p>
+                        </div>
+                    </div>
+                    <div id="combat-log" class="info-text" style="font-family: 'Verdana', sans-serif;"></div>
+                    
+                    <div class="button-group" id="combat-actions">
+                        <button onclick="spinCombatWheel()" class="spin-combat-btn" style="background-color: #ff6600; padding: 15px; font-size: 1.1rem; width: 100%;">Spin Combat Wheel</button>
+                        <div class="combat-items-row" style="flex-wrap: wrap;">
+                            <button id="combat-item-pill" onclick="useCombatItem('Soldier Pill', 'Player')" style="background-color: #4CAF50; flex: 1;">Pill (You)</button>
+                            <button id="combat-item-pill-naruto" class="hidden" onclick="useCombatItem('Soldier Pill', 'Naruto')" style="background-color: #f39c12; flex: 1;">Pill (Naruto)</button>
+                            <button id="combat-item-pill-sasuke" class="hidden" onclick="useCombatItem('Soldier Pill', 'Sasuke')" style="background-color: #9b59b6; flex: 1;">Pill (Sasuke)</button>
+                            <button id="combat-item-smoke" onclick="useCombatItem('Smoke Bomb')" style="background-color: gray; flex: 1;">Use Smoke</button>
+                            <button id="combat-item-tag" onclick="useCombatItem('Explosive Tag')" style="background-color: #e67e22; flex: 1;">Prep Tag</button>
+                            <button id="combat-flee-btn" class="hidden" onclick="fleeCombat()" style="background-color: #34495e; flex: 1;">Flee Battle</button>
+                        </div>
+                    </div>
+                    
+                    <button id="combat-end-btn" class="hidden next-btn" onclick="location.reload()">Restart Game</button>
+                    <button id="combat-win-btn" class="hidden next-btn" onclick="returnToHub()">Return to Hub</button>
+                    <button id="combat-reward-btn" class="hidden next-btn" onclick="spinCombatReward()" style="background-color: #f39c12;">Claim Combat Reward</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="center-panel">
+            <h2 id="wheel-title">Awaiting Destiny...</h2>
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <canvas id="wheel-canvas" width="550" height="550"></canvas>
+            </div>
+        </div>
+
+        <div id="right-panel" class="glass-panel">
+            <h3 class="panel-header">Ninja Profile</h3>
+            <div class="profile-grid">
+                <div class="profile-row"><span>Rank:</span> <span id="profile-rank">-</span></div>
+                <div class="profile-row"><span>Clan:</span> <span id="profile-clan">-</span></div>
+                <div class="profile-row"><span>Village:</span> <span id="profile-village">-</span></div>
+                <div class="profile-row"><span>Ryo:</span> <span id="profile-ryo" style="color:gold;">0</span></div>
+                <div class="profile-row"><span>HP:</span> <span id="profile-hp" style="color:#4CAF50;">100/100</span></div>
+                <div class="profile-row"><span>Awakening:</span> <span id="profile-awakening" style="color:#ffcc00;">None</span></div>
+                <div class="profile-row"><span>Natures:</span> <span id="profile-natures">-</span></div>
+                <div class="profile-row"><span>Chakra:</span> <span id="profile-chakraAmount">-</span></div>
+                <div class="profile-row"><span>Chakra Control:</span> <span id="profile-chakraControl">-</span></div>
+                <div class="profile-row"><span>Ninjutsu:</span> <span id="profile-ninjutsu">-</span></div>
+                <div class="profile-row"><span>Taijutsu:</span> <span id="profile-taijutsu">-</span></div>
+                <div class="profile-row"><span>Genjutsu:</span> <span id="profile-genjutsu">-</span></div>
+                <div class="profile-row"><span>Extra Skill:</span> <span id="profile-extraSkill">-</span></div>
+            </div>
+            
+            <h3 class="panel-header" style="margin-top: 15px;">Inventory</h3>
+            <div class="inventory-grid" id="items-grid"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
